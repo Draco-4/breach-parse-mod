@@ -1,0 +1,10 @@
+Check if args < 2
+	True, give directions
+	
+False, else
+	Check if args >= 4
+		True, give directions about quoting strings
+	
+	Assign default breachDataLocation
+	
+	Check if BreachCompilation was specified somwhere else by making sure the 3rd arg is a directory
