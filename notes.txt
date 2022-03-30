@@ -36,4 +36,6 @@ False, else
 	
 	wait 3s
 	
-	
+	echo # newline
+	echo "Extracting usernames..."
+	 
