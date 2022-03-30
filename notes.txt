@@ -8,3 +8,32 @@ False, else
 	Assign default breachDataLocation
 	
 	Check if BreachCompilation was specified somwhere else by making sure the 3rd arg is a directory
+	
+	#set output filenames
+	assign 2nd arg to fullfile
+	cut the file extension and assign the basename of fullfile as fbname
+### Isn't there supposed to be a space btw -d and . on line 44 ???
+	create 'master' variable holding fbname with '-master.txt' suffix
+	create 'users' variable holding fbname with '-users.txt' suffix
+	create 'passwords' variable holding fbname with '-passwords.txt' suffix
+	
+	create master file
+	#count files for progressBar
+	total_Files=$(find "breachDataLocation" -type f -not -path '*/\.*' | wc -l)
+	assign initial file_Count value to 0
+	
+	ProgressBar function
+		let _progress=$(((file_Count * 100 / total_Files * 100) / 100))
+		let _done=$(((_progress * 4) / 10))
+		let _left=$((40 - _done))
+		
+		_fill=$(printf "%${_done}s")
+		_empty=$(printf "%{_left}s")
+		
+		printf "\rProgress : [${_fill// /\#}${_empty// /-}] ${_progress}%%"
+		
+	#grep for passwords
+	
+	wait 3s
+	
+	
