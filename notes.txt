@@ -1,26 +1,31 @@
 Check if args < 2
-	True, give directions
+	True, give directions(refer to code)
 	
 False, else
 	Check if args >= 4
-		True, give directions about quoting strings
+		True, give error msg and directions about quoting strings
 	
-	Assign default breachDataLocation
+	Assign default breachDataLocation, /opt/breach-parse-mod/BreachCompilation/data
 	
-	Check if BreachCompilation was specified somwhere else by making sure the 3rd arg is a directory
+	Check if args == 3 
+		True, Check if 3rd args is a dir
+			True, assign it to breachDataLocation
+		Else, give error msg and directions
+	Else, if no dir in 'breachDataLocation'
+		True, give error msg and directions
 	
 	#set output filenames
-	assign 2nd arg to fullfile
-	cut the file extension and assign the basename of fullfile as fbname
+	assign 2nd arg to 'fullfile' 
+	fbname=get the basename of 'fullfile' and pipe it to cut file extension
 ### Isn't there supposed to be a space btw -d and . on line 44 ???
 	create 'master' variable holding fbname with '-master.txt' suffix
 	create 'users' variable holding fbname with '-users.txt' suffix
 	create 'passwords' variable holding fbname with '-passwords.txt' suffix
 	
-	create master file
+	create 'master' file
 	#count files for progressBar
 	total_Files=$(find "breachDataLocation" -type f -not -path '*/\.*' | wc -l)
-	assign initial file_Count value to 0
+	assign initial 'file_Count' value to 0
 	
 	ProgressBar function
 		let _progress=$(((file_Count * 100 / total_Files * 100) / 100))
@@ -33,9 +38,19 @@ False, else
 		printf "\rProgress : [${_fill// /\#}${_empty// /-}] ${_progress}%%"
 		
 	#grep for passwords
+	find breachDataLocation while ignoring hidden files/dirs, then pipe a while loop to read through the dir and grep using a and E flags the first args and $file then append them to master file
+	increment file_Count
+	call ProgressBar funtion with number and total_files as args
 	
 	wait 3s
 	
-	echo # newline
+	blank line
 	echo "Extracting usernames..."
-	 
+	awk to print the 1st args from master file into users file
+	
+	wait 1s
+	
+	echo "Extracting passwords..."
+	awk to print the 2nd args from master file to the passwords file
+	blank line
+	exit 0
