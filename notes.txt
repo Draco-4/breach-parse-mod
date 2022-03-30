@@ -24,8 +24,8 @@ False, else
 	
 	create 'master' file
 	#count files for progressBar
-	total_Files=$(find "breachDataLocation" -type f -not -path '*/\.*' | wc -l)
-	assign initial 'file_Count' value to 0
+	find "breachDataLocation" without hidden files/dirs, pipe it count the num of lines, then assign it to total_Files
+	initialize 'file_Count' as 0
 	
 	ProgressBar function
 		let _progress=$(((file_Count * 100 / total_Files * 100) / 100))
